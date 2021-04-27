@@ -1,0 +1,68 @@
+{% extends 'base.html' %} {% block content %} {% for doctor in doctors %}
+
+<div class="card">
+  <div class="card-body">
+    <div class="row">
+      <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 py-3">
+        <h1 id="ihfb3">{{doctor.name}}</h1>
+        <p id="ir6wf">{{doctor.specialty}}</p>
+        <p id="i9ukp">{{doctor.location}}</p>
+        <span class="text-success">●</span><small id="i211j">Online</small>
+      </div>
+      <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-12 py-3">
+        <div class="my-tabs">
+          <nav id="myTab" role="tablist" class="nav nav-tabs">
+            <a
+              id="nav-home-tab"
+              data-toggle="tab"
+              href="#nav-home"
+              role="tab"
+              aria-controls="nav-home"
+              aria-expanded="true"
+              class="nav-item nav-link active"
+              >About</a
+            ><a
+              id="nav-profile-tab"
+              data-toggle="tab"
+              href="#nav-profile"
+              role="tab"
+              aria-controls="nav-profile"
+              class="nav-item nav-link"
+              >Contact</a
+            >
+          </nav>
+          <div id="nav-tabContent" class="tab-content">
+            <div
+              id="nav-home"
+              role="tabpanel"
+              aria-labelledby="nav-home-tab"
+              class="tab-pane fade show active"
+            >
+              <p id="ildesk">{{doctor.description}}</p>
+            </div>
+
+            <div
+              id="nav-profile"
+              role="tabpanel"
+              aria-labelledby="nav-home-tab"
+              class="tab-pane fade show active"
+            >
+              <p id="ilesk">{{doctor.contact}}</p>
+              <button type="button" class="btn btn-sm btn-success">
+                Contact
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-12 py-3"></div>
+      <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 py-3"></div>
+    </div>
+
+    <a href="{% url 'detail' doctor.id %}"> View More</a>
+  </div>
+</div>
+
+{%endfor%} {% endblock %}
