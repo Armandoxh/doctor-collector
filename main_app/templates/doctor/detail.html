@@ -1,0 +1,81 @@
+{% extends 'base.html' %} {% block content %}
+<body>
+    <!--Bootstrap Scripts-->
+    <section class="py-5">
+        <div class="container">
+            <div class="row mb-4">
+                {% for photo in cat.photo_set.all %}
+                <img class="img-fluid" src="{{photo.url}}">
+              {% empty %}
+                <div class="card-panel teal-text center-align">No Photos Uploaded</div>
+              {% endfor %}
+              <form action="{% url 'add_photo' doctor.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
+                {% csrf_token %}
+                <input type="file" name="photo-file">
+                <br><br>
+                <input type="submit" class="btn" value="Upload Photo">
+            </form>
+                <div class="col-12 col-md-6 col-lg-6 mb-4">
+                    <h1 id="iar1m">{{doctor.name}}</h1>
+                    <h5 class="mb-1 mt-3 text-secondary">{{doctor.specialty}}</h5>
+                    <h1 class= "pt-5 pb-2">{{doctor.description}}</h1>
+                    <div class="testimonial-profile"></div>
+                </div>
+                <a href="{% url 'doctor_update' doctor.id %}">Edit</a>
+                
+                <a href="{% url 'doctor_delete' doctor.id %}"><br>Delete</a>
+            </div>
+        </div>
+        <section class="customer-testimonials py-5">
+            <div class="container text-center">
+                <h2 id="ixqfk">
+                    <div><br /></div>
+                    <div>Reviews</div>
+                </h2>
+                {% if doctor.reviews.count %}
+                {% for review in doctor.reviews.all %}
+                <div class="row">
+                    <div id="customer-testimonials-02" data-ride="carousel" class="carousel slide my-4">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <div class="row">
+                                    <div class="col-md-4 mt-5">
+                                        <p class="mb-4">{{review.stars}} stars</p>
+                                        <p class="mt-4 mb-0">{{review.title}}</p>
+                                        <p class="text-muted">{{review.review}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                         
+                        </div>
+                    </div>
+                    <div class="mx-auto"><a href="#customer-testimonials-02" role="button" data-slide="prev" class="carousel-control-prev position-relative d-inline mr-2"><span
+                                class="sr-only">Previous</span></a><a href="#customer-testimonials-02" role="button" data-slide="next" class="carousel-control-next position-relative d-inline"><span
+                                class="sr-only">Next</span></a></div>
+                </div>
+                {% endfor %}
+ {% else %}
+ <h5>No Reviews Yet! :(</h5>{% endif %}
+            </div>
+        </section>
+        <div class="row mt-5 py-5 mb-5"></div>
+    </section>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
+    </script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./sw.js')
+                .then(function() {
+                    console.log('Service Worker Registered');
+                });
+        }
+
+    </script>
+    <script src="assets/js/app.js"></script>
+</body>
+
+</html>
+{% endblock %}
